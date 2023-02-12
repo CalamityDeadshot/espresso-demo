@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 )
             ),
             onPhoneActionClick = {
-                Snackbar.make(recyclerView, "Calling ${it.name}", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(recyclerView, "Сalling ${it.name}", Snackbar.LENGTH_LONG).show()
             }
         )
         recyclerView.apply {

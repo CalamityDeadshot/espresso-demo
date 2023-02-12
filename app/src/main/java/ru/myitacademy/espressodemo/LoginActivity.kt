@@ -1,11 +1,10 @@
 package ru.myitacademy.espressodemo
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import androidx.core.widget.addTextChangedListener
+import androidx.appcompat.app.AppCompatActivity
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,15 +15,15 @@ class LoginActivity : AppCompatActivity() {
         val passwordEditText = findViewById<EditText>(R.id.password_edit_text)
         val repeatPasswordEditText = findViewById<EditText>(R.id.repeat_password_edit_text)
 
-        val registerButton = findViewById<Button>(R.id.button_register).apply {
+        findViewById<Button>(R.id.button_register).apply {
             setOnClickListener {
                 val login = loginEditText.text.toString()
                 val password = passwordEditText.text.toString()
                 val repeatedPassword = repeatPasswordEditText.text.toString()
 
-                val loginIsEmpty = login.isEmpty()
+                val loginIsEmpty = login.isNotEmpty()
                 val passwordIsTooShort = password.length < 8
-                val passwordsMatch = repeatedPassword == password
+                val passwordsMatch = repeatedPassword != password
 
                 if (loginIsEmpty) {
                     loginEditText.error = "Login must not be empty"
