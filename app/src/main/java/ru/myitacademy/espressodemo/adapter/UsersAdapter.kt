@@ -39,8 +39,11 @@ class UsersAdapter(
         holder.teaches.text = dataSet[position].teaches.joinToString(
             prefix = "Преподаватель "
         )
-        holder.callButton.setOnClickListener {
-            onPhoneActionClick(dataSet[position])
+        holder.callButton.apply {
+            setOnClickListener {
+                onPhoneActionClick(dataSet[position])
+            }
+            contentDescription = "Call ${dataSet[position].name}"
         }
     }
 

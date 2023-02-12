@@ -20,21 +20,58 @@ class LoginActivityTest {
 
     @Test
     fun emptyLoginField_causesError() {
-
+        onView(withId(R.id.button_register))
+            .perform(ViewActions.click())
+        onView(withId(R.id.login_edit_text))
+            .check(ViewAssertions.matches(hasErrorText("Login must not be empty")))
     }
 
     @Test
     fun shortPassword_causesError() {
-
+        onView(withId(R.id.button_register))
+            .perform(ViewActions.click())
+        onView(withId(R.id.password_edit_text))
+            .check(ViewAssertions.matches(hasErrorText("Password must be at least 8 characters long")))
     }
 
     @Test
     fun passwordsDoNotMatch_causesError() {
 
+        onView(withId(R.id.login_edit_text))
+            .perform(ViewActions.typeText("login"))
+
+        onView(withId(R.id.password_edit_text))
+            .perform(ViewActions.typeText("password"))
+
+        onView(withId(R.id.repeat_password_edit_text))
+            .perform(ViewActions.typeText("another password"))
+
+        Espresso.closeSoftKeyboard()
+
+        onView(withId(R.id.button_register))
+            .perform(ViewActions.click())
+
+        onView(withId(R.id.repeat_password_edit_text))
+            .check(ViewAssertions.matches(hasErrorText("Passwords do not match")))
     }
 
     @Test
     fun properInputs_activitySwitches() {
+        onView(withId(R.id.login_edit_text))
+            .perform(ViewActions.typeText("login"))
 
+        onView(withId(R.id.password_edit_text))
+            .perform(ViewActions.typeText("password"))
+
+        onView(withId(R.id.repeat_password_edit_text))
+            .perform(ViewActions.typeText("password"))
+
+        Espresso.closeSoftKeyboard()
+
+        onView(withId(R.id.button_register))
+            .perform(ViewActions.click())
+
+        onView(withId(R.id.users_rv))
+            .check(ViewAssertions.matches(isDisplayed()))
     }
 }
